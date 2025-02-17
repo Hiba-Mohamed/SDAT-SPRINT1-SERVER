@@ -7,30 +7,30 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AirportService {
+public class AircraftService {
     @Autowired
-    private AirportRepository airportRepository;
+    private AircraftRepository airportRepository;
 
-    public List<Airport> findAllAirports() {
-        return (List<Airport>) airportRepository.findAll();
+    public List<Aircraft> findAllAirports() {
+        return (List<Aircraft>) airportRepository.findAll();
     }
 
-    public Airport findAirportById(long id) {
-        Optional<Airport> optionalAirport = airportRepository.findById(id);
+    public Aircraft findAirportById(long id) {
+        Optional<Aircraft> optionalAirport = airportRepository.findById(id);
 
         return optionalAirport.orElse(null);
     }
 
-    public Airport findByName(String name) {
+    public Aircraft findByName(String name) {
         return airportRepository.findByName(name);
     }
 
-    public Airport createAirport(Airport newAirport) {
+    public Aircraft createAirport(Aircraft newAirport) {
         return airportRepository.save(newAirport);
     }
 
-    public Airport updateAirport(long id, Airport updatedAirport) {
-        Airport airportToUpdate = findAirportById(id);
+    public Aircraft updateAirport(long id, Aircraft updatedAirport) {
+        Aircraft airportToUpdate = findAirportById(id);
 
         if (airportToUpdate != null) {
             airportToUpdate.setCode(updatedAirport.getCode());

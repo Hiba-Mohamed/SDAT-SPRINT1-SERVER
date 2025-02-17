@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
-public class Airport {
+public class Aircraft {
     @Id
     @SequenceGenerator(name = "airport_sequence", sequenceName = "airport_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "airport_sequence")
