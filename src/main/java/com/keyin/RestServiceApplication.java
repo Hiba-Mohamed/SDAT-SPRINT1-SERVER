@@ -1,5 +1,6 @@
 package com.keyin;
 
+import com.keyin.airport.Airport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
