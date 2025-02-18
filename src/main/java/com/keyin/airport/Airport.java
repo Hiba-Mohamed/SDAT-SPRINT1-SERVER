@@ -15,6 +15,8 @@ public class Airport {
     private String code;
     private String name;
 
+    public Airport(){}
+
     public Airport(String code, String name)
     {
         this.code = code;

@@ -16,9 +16,8 @@ public class AircraftService {
     }
 
     public Aircraft findById(long id) {
-        Optional<Aircraft> optionalAircraft = Optional.ofNullable(aircraftRepository.findById(id));
-
-        return optionalAircraft.orElse(null);
+        Optional<Aircraft> optionalAircraft = aircraftRepository.findById(id);
+        return optionalAircraft.orElse(null); // Return null if not found
     }
 
     public Aircraft createAircraft(Aircraft newAircraft) {
