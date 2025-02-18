@@ -12,36 +12,36 @@ public class AircraftController {
     @Autowired
     private AircraftService aircraftService;
 
-    @GetMapping("/airports")
-    public List<Aircraft> getAllAirports() {
-        return aircraftService.findAllAirports();
+    @GetMapping("/aircrafts")
+    public List<Aircraft> getAllAircrafts() {
+        return aircraftService.findAllAircrafts();
     }
 
-    @GetMapping("/airport/{id}")
-    public Aircraft getAirportByID(@PathVariable long id) {
-        return aircraftService.findAirportById(id);
+    @GetMapping("/aircraft/{id}")
+    public Aircraft getAircraftByID(@PathVariable long id) {
+        return aircraftService.findById(id);
     }
 
-    @GetMapping("/airport_search")
-    public List<Aircraft> searchAirports(@RequestParam(value = "name", required = false) String name) {
+    @GetMapping("/aircraft_search")
+    public List<Aircraft> searchAircrafts(@RequestParam(value = "name", required = false) long id) {
         List<Aircraft> results = new ArrayList<Aircraft>();
 
-        Aircraft airport = aircraftService.findByName(name);
+        Aircraft aircraft = aircraftService.findById(id);
 
-        if (airport != null) {
-            results.add(airport);
+        if (aircraft != null) {
+            results.add(aircraft);
         }
 
         return results;
     }
 
-    @PostMapping("/airport")
-    public Aircraft createAirport(@RequestBody Aircraft newAirport) {
-        return aircraftService.createAirport(newAirport);
+    @PostMapping("/aircraft")
+    public Aircraft createAircraft(@RequestBody Aircraft newAircraft) {
+        return aircraftService.createAircraft(newAircraft);
     }
 
-    @PutMapping("/airport/{id}")
-    public Aircraft updateAirport(@PathVariable long id, @RequestBody Aircraft updatedAircraft) {
-        return aircraftService.updateAirport(id, updatedAircraft);
+    @PutMapping("/aircraft/{id}")
+    public Aircraft updateAircraft(@PathVariable long id, @RequestBody Aircraft updatedAircraft) {
+        return aircraftService.updateAircraft(id, updatedAircraft);
     }
 }

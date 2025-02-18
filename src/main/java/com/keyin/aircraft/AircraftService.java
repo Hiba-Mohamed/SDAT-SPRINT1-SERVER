@@ -1,5 +1,5 @@
 package com.keyin.aircraft;
-
+import com.keyin.aircraft.Aircraft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,36 +9,37 @@ import java.util.Optional;
 @Service
 public class AircraftService {
     @Autowired
-    private AircraftRepository airportRepository;
+    private AircraftRepository aircraftRepository;
 
-    public List<Aircraft> findAllAirports() {
-        return (List<Aircraft>) airportRepository.findAll();
+    public List<Aircraft> findAllAircrafts() {
+        return (List<Aircraft>) aircraftRepository.findAll();
     }
 
-    public Aircraft findAirportById(long id) {
-        Optional<Aircraft> optionalAirport = airportRepository.findById(id);
+    public Aircraft findById(long id) {
+        Optional<Aircraft> optionalAircraft = Optional.ofNullable(aircraftRepository.findById(id));
 
-        return optionalAirport.orElse(null);
+        return optionalAircraft.orElse(null);
     }
 
-    public Aircraft findByName(String name) {
-        return airportRepository.findByName(name);
+    public Aircraft findByName(long id) {
+        return aircraftRepository.findById(id);
     }
 
-    public Aircraft createAirport(Aircraft newAirport) {
-        return airportRepository.save(newAirport);
+    public Aircraft createAircraft(Aircraft newAircraft) {
+        return aircraftRepository.save(newAircraft);
     }
 
-    public Aircraft updateAirport(long id, Aircraft updatedAirport) {
-        Aircraft airportToUpdate = findAirportById(id);
-
-        if (airportToUpdate != null) {
-            airportToUpdate.setCode(updatedAirport.getCode());
-            airportToUpdate.setName(updatedAirport.getName());
-
-            return airportRepository.save(airportToUpdate);
+    public Aircraft updateAircraft(long id, Aircraft updatedAircraft) {
+        Aircraft aircraftToUpdate = findById(id);
+        if (aircraftToUpdate != null) {
+            aircraftToUpdate.setType(updatedAircraft.getType());
+            aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
+            aircraftToUpdate.setNumberOfPassengers(updatedAircraft.getNumberOfPassengers());
+            return aircraftRepository.save(aircraftToUpdate);
         }
 
         return null;
     }
+
+
 }

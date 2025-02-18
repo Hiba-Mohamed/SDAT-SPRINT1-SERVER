@@ -8,34 +8,35 @@ import jakarta.persistence.SequenceGenerator;
 @Entity
 public class Aircraft {
     @Id
-    @SequenceGenerator(name = "airport_sequence", sequenceName = "airport_sequence", allocationSize = 1, initialValue=1)
-    @GeneratedValue(generator = "airport_sequence")
+    @SequenceGenerator(name = "aircraft_sequence", sequenceName = "aircraft_sequence", allocationSize = 1, initialValue=1)
+    @GeneratedValue(generator = "aircraft_sequence")
     private long id;
+    private String type;
+    private String airlineName;
+    private int numberOfPassengers;
 
-    private String code;
-    private String name;
-
+    //getters
     public long getId() {
         return id;
     }
+    public String getType() {
+        return this.type;
+    }
+    public String getAirlineName(){return  this.airlineName;}
+    public int getNumberOfPassengers(){return this.numberOfPassengers;}
 
+    //setters
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getCode() {
-        return code;
+    public void setType(String type){
+        this.type = type;
+    }
+    public void setAirlineName(String airlineName) {
+        this.airlineName = airlineName;
+    }
+    public void setNumberOfPassengers(int numberOfPassengers){
+        this.numberOfPassengers = numberOfPassengers;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
