@@ -15,7 +15,11 @@ public class Airport {
     private String code;
     private String name;
 
-    public long getId() {
+    public Airport(String code, String name)
+    {
+        this.code = code;
+        this.name = name;
+    }    public long getId() {
         return id;
     }
 

@@ -21,10 +21,6 @@ public class AircraftService {
         return optionalAircraft.orElse(null);
     }
 
-    public Aircraft findByName(long id) {
-        return aircraftRepository.findById(id);
-    }
-
     public Aircraft createAircraft(Aircraft newAircraft) {
         return aircraftRepository.save(newAircraft);
     }
