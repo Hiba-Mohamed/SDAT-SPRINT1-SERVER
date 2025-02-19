@@ -36,7 +36,6 @@ public class CityService {
         if (cityToUpdate != null) {new ArrayList<City>();
             cityToUpdate.setName(updatedCity.getName());
             cityToUpdate.setState((updatedCity.getState()));
-            cityToUpdate.setPopulation(updatedCity.getPopulation());
 
             return cityRepository.save(cityToUpdate);
         }

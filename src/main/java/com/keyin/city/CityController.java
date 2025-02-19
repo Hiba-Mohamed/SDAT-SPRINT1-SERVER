@@ -22,18 +22,18 @@ public class CityController {
         return cityService.findCityById(id);
     }
 
-    @GetMapping("/city_search")
-    public List<City> searchCities(@RequestParam(value = "name", required = false) String name) {
-        List<City> results = new ArrayList<City>();
-
-        City city = cityService.findByName(name);
-
-        if (city != null) {
-            results.add(city);
-        }
-
-        return results;
-    }
+//    @GetMapping("/city_search")
+//    public List<City> searchCities(@RequestParam(value = "name", required = false) String name) {
+//        List<City> results = new ArrayList<City>();
+//
+//        City city = cityService.findByName(name);
+//
+//        if (city != null) {
+//            results.add(city);
+//        }
+//
+//        return results;
+//    }
 
     @PostMapping("/city")
     public City createAircraft(@RequestBody City newCity) {
