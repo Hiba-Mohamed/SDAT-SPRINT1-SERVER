@@ -36,7 +36,7 @@ public class CityController {
 //    }
 
     @PostMapping("/city")
-    public City createAircraft(@RequestBody City newCity) {
+    public City createCity(@RequestBody City newCity) {
         return cityService.createCity(newCity);
     }
 
