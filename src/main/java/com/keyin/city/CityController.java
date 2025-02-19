@@ -18,7 +18,7 @@ public class CityController {
     }
 
     @GetMapping("/city/{id}")
-    public City getCityByID(@PathVariable long id) {
+    public City getCityByID(@PathVariable("id") long id) {
         return cityService.findCityById(id);
     }
 
@@ -41,7 +41,7 @@ public class CityController {
     }
 
     @PutMapping("/city/{id}")
-    public City updateCity(@PathVariable long id, @RequestBody City updatedCity) {
+    public City updateCity(@PathVariable("id") long id, @RequestBody City updatedCity) {
         return cityService.updateCity(id, updatedCity);
     }
 }

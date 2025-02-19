@@ -17,7 +17,7 @@ public class PassengerController {
     }
 
     @GetMapping("/passenger/{id}")
-    public Passenger getPassengerByID(@PathVariable long id) {
+    public Passenger getPassengerByID(@PathVariable("id") long id) {
         return passengerService.findPassengerById(id);
     }
 
@@ -40,7 +40,7 @@ public class PassengerController {
     }
 
     @PutMapping("/passenger/{id}")
-    public Passenger updatePassenger(@PathVariable long id, @RequestBody Passenger updatedPassenger) {
+    public Passenger updatePassenger(@PathVariable("id") long id, @RequestBody Passenger updatedPassenger) {
         return passengerService.updatePassenger(id, updatedPassenger);
     }
 }
