@@ -1,9 +1,8 @@
 package com.keyin.city;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import com.keyin.airport.Airport;
+import com.keyin.passengers.Passenger;
+import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
 public class City {
@@ -14,6 +13,12 @@ public class City {
     private String name;
     private String state;
     private long population;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Airport> airports;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Passenger> passengers;
 
     public long getId() {
         return id;

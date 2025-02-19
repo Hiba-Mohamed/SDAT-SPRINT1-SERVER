@@ -14,7 +14,9 @@ public class AirportService {
     public List<Airport> findAllAirports() {
         return (List<Airport>) airportRepository.findAll();
     }
-
+    public List<Airport> findAirportsByCity(Long cityId) {
+        return airportRepository.findByCityId(cityId);
+    }
     public Airport findAirportById(long id) {
         Optional<Airport> optionalAirport = airportRepository.findById(id);
 

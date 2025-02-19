@@ -1,9 +1,9 @@
 package com.keyin.passengers;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+import com.keyin.aircraft.Aircraft;
+import com.keyin.city.City;
+import java.util.List;
 
 @Entity
 public class Passenger {
@@ -14,6 +14,19 @@ public class Passenger {
     private String firstName;
     private String lastName;
     private int phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false) // FK to City
+    private City city;
+
+    @ManyToMany
+    @JoinTable(
+            name = "passenger_aircraft",
+            joinColumns = @JoinColumn(name = "passenger_id"),
+            inverseJoinColumns = @JoinColumn(name = "aircraft_id")
+    )
+    private List<Aircraft> aircraft;
+
 
     public long getId() {
         return id;

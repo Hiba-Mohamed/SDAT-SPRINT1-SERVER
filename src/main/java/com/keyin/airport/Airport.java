@@ -1,9 +1,10 @@
 package com.keyin.airport;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+import com.keyin.city.City;
+
+import com.keyin.aircraft.Aircraft;
+import java.util.List;
 
 @Entity
 public class Airport {
@@ -14,6 +15,13 @@ public class Airport {
 
     private String code;
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false) // FK to City
+    private City city;
+
+    @ManyToMany(mappedBy = "airports")
+    private List<Aircraft> aircraft;
 
     public Airport(){}
 
