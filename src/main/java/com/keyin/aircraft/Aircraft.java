@@ -15,6 +15,8 @@ public class Aircraft {
     private String airlineName;
     private int numberOfPassengers;
 
+    public Aircraft(){}
+
     //getters
     public long getId() {
         return id;
