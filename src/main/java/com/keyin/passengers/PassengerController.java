@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin
@@ -21,18 +22,18 @@ public class PassengerController {
         return passengerService.findPassengerById(id);
     }
 
-//    @GetMapping("/passenger_search")
-//    public List<Passenger> searchPassengers(@RequestParam(value = "name", required = false) String name) {
-//        List<Passenger> results = new ArrayList<Passenger>();
-//
-//        Passenger passenger = passengerService.findByName(name);
-//
-//        if (passenger != null) {
-//            results.add(passenger);
-//        }
-//
-//        return results;
-//    }
+    @GetMapping("/passenger_search")
+    public List<Passenger> searchPassengers(@RequestParam(value = "phoneNumber", required = false) int phoneNumber) {
+        List<Passenger> results = new ArrayList<Passenger>();
+
+        Passenger passenger = passengerService.findByPhoneNumber(phoneNumber);
+
+        if (passenger != null) {
+            results.add(passenger);
+        }
+
+        return results;
+    }
 
     @PostMapping("/passenger")
     public Passenger createPassenger(@RequestBody Passenger newPassenger) {
