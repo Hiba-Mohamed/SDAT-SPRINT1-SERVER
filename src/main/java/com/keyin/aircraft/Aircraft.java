@@ -1,9 +1,10 @@
 package com.keyin.aircraft;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+import com.keyin.passengers.Passenger;
+import java.util.List;
+import com.keyin.airport.Airport;
+
 
 @Entity
 public class Aircraft {
@@ -14,6 +15,17 @@ public class Aircraft {
     private String type;
     private String airlineName;
     private int numberOfPassengers;
+
+    @ManyToMany
+    @JoinTable(
+            name = "aircraft_airport",
+            joinColumns = @JoinColumn(name = "aircraft_id"),
+            inverseJoinColumns = @JoinColumn(name = "airport_id")
+    )
+    private List<Airport> airports;
+
+    @ManyToMany(mappedBy = "aircraft")
+    private List<Passenger> passengers;
 
     public Aircraft(){}
 
