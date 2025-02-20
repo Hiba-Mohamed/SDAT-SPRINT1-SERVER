@@ -1,16 +1,21 @@
 package com.keyin.passengers;
 
+import com.keyin.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.ArrayList;
+import com.keyin.city.City;
+import com.keyin.city.CityService;
 
 @RestController
 @CrossOrigin
 public class PassengerController {
     @Autowired
     private PassengerService passengerService;
+    @Autowired
+    private CityService cityService;
 
     @GetMapping("/passengers")
     public List<Passenger> getAllPassengers() {
@@ -37,6 +42,11 @@ public class PassengerController {
 
     @PostMapping("/passenger")
     public Passenger createPassenger(@RequestBody Passenger newPassenger) {
+        City city = cityService.findCityById(newPassenger.getCity().getId());
+        if (city == null) {
+            throw new RuntimeException("City not found with ID: " + newPassenger.getCity().getId());
+        }
+        newPassenger.setCity(city);
         return passengerService.createPassenger(newPassenger);
     }
 
@@ -44,4 +54,9 @@ public class PassengerController {
     public Passenger updatePassenger(@PathVariable("id") long id, @RequestBody Passenger updatedPassenger) {
         return passengerService.updatePassenger(id, updatedPassenger);
     }
+
+//    @GetMapping("/airportsPassengerUsed/{id}")
+//    public List<Airport> getAirportsPassengerUsed(@PathVariable("id") long id){
+//        return
+//    }
 }

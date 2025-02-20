@@ -1,5 +1,7 @@
 package com.keyin.aircraft;
 
+import com.keyin.airport.Airport;
+import com.keyin.passengers.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +24,6 @@ public class AircraftController {
         return aircraftService.findById(id);
     }
 
-//    @GetMapping("/aircraft_search")
-//    public List<Aircraft> searchAircrafts(@RequestParam(value = "name", required = false) long id) {
-//        List<Aircraft> results = new ArrayList<Aircraft>();
-//
-//        Aircraft aircraft = aircraftService.findById(id);
-//
-//        if (aircraft != null) {
-//            results.add(aircraft);
-//        }
-//
-//        return results;
-//    }
 
     @PostMapping("/aircraft")
     public Aircraft createAircraft(@RequestBody Aircraft newAircraft) {
@@ -43,5 +33,19 @@ public class AircraftController {
     @PutMapping("/aircraft/{id}")
     public Aircraft updateAircraft(@PathVariable long id, @RequestBody Aircraft updatedAircraft) {
         return aircraftService.updateAircraft(id, updatedAircraft);
+    }
+
+    @GetMapping("/whichPassengersTravelledOnAircraft/{id}")
+    public List<Passenger> getAllPassengers(@PathVariable long id){
+        Aircraft aircraft = aircraftService.findById(id);
+        if (aircraft != null){
+            return aircraft.getPassengers();
+        }
+        else return null;
+    }
+
+    @GetMapping("/whichAirportsCanAircraftTakeOffFromAndLandAt/{id}")
+    public List<Airport> getAllAircraftAirports(@PathVariable long id){
+        return aircraftService.findById(id).getAirportList();
     }
 }
