@@ -24,18 +24,6 @@ public class AircraftController {
         return aircraftService.findById(id);
     }
 
-//    @GetMapping("/aircraft_search")
-//    public List<Aircraft> searchAircrafts(@RequestParam(value = "name", required = false) long id) {
-//        List<Aircraft> results = new ArrayList<Aircraft>();
-//
-//        Aircraft aircraft = aircraftService.findById(id);
-//
-//        if (aircraft != null) {
-//            results.add(aircraft);
-//        }
-//
-//        return results;
-//    }
 
     @PostMapping("/aircraft")
     public Aircraft createAircraft(@RequestBody Aircraft newAircraft) {
@@ -49,7 +37,11 @@ public class AircraftController {
 
     @GetMapping("/whichPassengersTravelledOnAircraft/{id}")
     public List<Passenger> getAllPassengers(@PathVariable long id){
-        return aircraftService.findById(id).getPassengers();
+        Aircraft aircraft = aircraftService.findById(id);
+        if (aircraft != null){
+            return aircraft.getPassengers();
+        }
+        else return null;
     }
 
     @GetMapping("/whichAirportsCanAircraftTakeOffFromAndLandAt/{id}")

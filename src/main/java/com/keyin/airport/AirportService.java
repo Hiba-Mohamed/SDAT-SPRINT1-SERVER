@@ -43,4 +43,7 @@ public class AirportService {
 
         return null;
     }
+    public List<Airport> getAirportsUsedByPassenger(long passengerId) {
+        return airportRepository.findAirportsByPassengerId(passengerId);
+    }
 }

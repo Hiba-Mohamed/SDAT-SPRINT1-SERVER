@@ -49,4 +49,10 @@ public class AirportController {
     public Airport updateAirport(@PathVariable long id, @RequestBody Airport updatedAirport) {
         return airportService.updateAirport(id, updatedAirport);
     }
+
+    @GetMapping("/airportsUsedByPassenger/{passengerId}")
+    public List<Airport> getAirportsUsedByPassenger(@PathVariable long passengerId) {
+        List<Airport> airports = airportService.getAirportsUsedByPassenger(passengerId);
+        return airports;
+    }
 }
