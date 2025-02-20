@@ -16,11 +16,11 @@ public class AirportController {
     public List<Airport> getAllAirports() {
         return airportService.findAllAirports();
     }
+
     @GetMapping("/airportsByCity/{city_id}")
     public List<Airport> getAllCityAirports(@PathVariable Long city_id) {
         return airportService.findAirportsByCity(city_id);
     }
-
 
     @GetMapping("/airport/{id}")
     public Airport getAirportByID(@PathVariable long id) {

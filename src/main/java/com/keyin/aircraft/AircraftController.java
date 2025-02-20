@@ -1,5 +1,7 @@
 package com.keyin.aircraft;
 
+import com.keyin.airport.Airport;
+import com.keyin.passengers.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +45,15 @@ public class AircraftController {
     @PutMapping("/aircraft/{id}")
     public Aircraft updateAircraft(@PathVariable long id, @RequestBody Aircraft updatedAircraft) {
         return aircraftService.updateAircraft(id, updatedAircraft);
+    }
+
+    @GetMapping("/whichPassengersTravelledOnAircraft/{id}")
+    public List<Passenger> getAllPassengers(@PathVariable long id){
+        return aircraftService.findById(id).getPassengers();
+    }
+
+    @GetMapping("/whichAirportsCanAircraftTakeOffFromAndLandAt/{id}")
+    public List<Airport> getAllAircraftAirports(@PathVariable long id){
+        return aircraftService.findById(id).getAirportList();
     }
 }

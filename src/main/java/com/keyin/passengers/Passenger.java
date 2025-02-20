@@ -27,6 +27,19 @@ public class Passenger {
     )
     private List<Aircraft> aircraft;
 
+    public Passenger(String firstName, String lastName, int phoneNumber, City city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+    }
+
+    public City getCity(){
+        return this.city;
+    }
+    public void setCity(City newCity){
+        this.city = newCity;
+    }
 
     public long getId() {
         return id;

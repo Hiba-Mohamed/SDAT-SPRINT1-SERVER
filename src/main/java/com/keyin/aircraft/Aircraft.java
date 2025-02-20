@@ -52,5 +52,11 @@ public class Aircraft {
     public void setNumberOfPassengers(int numberOfPassengers){
         this.numberOfPassengers = numberOfPassengers;
     }
+    public List<Passenger> getPassengers(){
+        return this.passengers;
+    }
+    public List<Airport> getAirportList(){
+        return this.airports;
+    }
 
 }
