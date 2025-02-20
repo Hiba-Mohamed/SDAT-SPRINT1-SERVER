@@ -29,6 +29,14 @@ public class Aircraft {
 
     public Aircraft(){}
 
+    public Aircraft(String type, String airlineName, int numberOfPassengers, List<Airport> airports, List<Passenger> passengers) {
+        this.type = type;
+        this.airlineName = airlineName;
+        this.numberOfPassengers = numberOfPassengers;
+        this.airports = airports;
+        this.passengers = passengers;
+    }
+
     //getters
     public long getId() {
         return id;
@@ -38,6 +46,12 @@ public class Aircraft {
     }
     public String getAirlineName(){return  this.airlineName;}
     public int getNumberOfPassengers(){return this.numberOfPassengers;}
+    public List<Passenger> getPassengers(){
+        return this.passengers;
+    }
+    public List<Airport> getAirports(){
+        return this.airports;
+    }
 
     //setters
     public void setId(long id) {
@@ -52,11 +66,6 @@ public class Aircraft {
     public void setNumberOfPassengers(int numberOfPassengers){
         this.numberOfPassengers = numberOfPassengers;
     }
-    public List<Passenger> getPassengers(){
-        return this.passengers;
-    }
-    public List<Airport> getAirportList(){
-        return this.airports;
-    }
-
+    public void setAirports(List<Airport> airports) { this.airports = airports; }
+    public void setPassengers(List<Passenger> passengers) { this.passengers = passengers; }
 }

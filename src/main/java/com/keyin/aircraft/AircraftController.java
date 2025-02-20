@@ -46,6 +46,6 @@ public class AircraftController {
 
     @GetMapping("/whichAirportsCanAircraftTakeOffFromAndLandAt/{id}")
     public List<Airport> getAllAircraftAirports(@PathVariable long id){
-        return aircraftService.findById(id).getAirportList();
+        return aircraftService.findById(id).getAirports();
     }
 }

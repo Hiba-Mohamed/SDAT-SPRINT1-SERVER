@@ -25,10 +25,12 @@ public class Airport {
 
     public Airport(){}
 
-    public Airport(String code, String name)
+    public Airport(String code, String name, City city, List<Aircraft> aircraftList)
     {
         this.code = code;
         this.name = name;
+        this.city = city;
+        this.aircraftList = aircraftList;
     }
     public long getId() {
         return id;
