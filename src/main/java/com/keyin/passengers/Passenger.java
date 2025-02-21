@@ -34,6 +34,7 @@ public class Passenger {
         this.city = city;
     }
 
+    public Passenger(){}
     public City getCity(){
         return this.city;
     }
