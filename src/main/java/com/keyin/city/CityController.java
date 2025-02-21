@@ -1,6 +1,8 @@
 package com.keyin.city;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,4 +46,16 @@ public class CityController {
     public City updateCity(@PathVariable("id") long id, @RequestBody City updatedCity) {
         return cityService.updateCity(id, updatedCity);
     }
+
+    @PostMapping("/initialize-cities")
+    public ResponseEntity<String> initializeCities(@RequestBody List<City> cities) {
+        try {
+            cityService.saveCities(cities);
+            return new ResponseEntity<>("Cities data initialized successfully.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to initialize cities.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }

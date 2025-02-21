@@ -19,7 +19,15 @@ public class City {
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Passenger> passengers;
+    public City() {
+        // Initialization if needed
+    }
 
+    public City(String name, String state, long population){
+        this.name = name;
+        this.state = state;
+        this.population = population;
+    }
     public long getId() {
         return id;
     }
