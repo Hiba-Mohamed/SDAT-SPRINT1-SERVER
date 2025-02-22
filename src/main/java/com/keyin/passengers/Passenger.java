@@ -13,7 +13,7 @@ public class Passenger {
     private long id;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
+    private int phoneNumber;
 
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false) // FK to City
@@ -29,7 +29,14 @@ public class Passenger {
 
     public Passenger(){}
 
-    public Passenger(String firstName, String lastName, String phoneNumber, City city, List<Aircraft> aircraft) {
+    public Passenger(String firstName, String lastName, int phoneNumber, City city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+    }
+
+    public Passenger(String firstName, String lastName, int phoneNumber, City city, List<Aircraft> aircraft) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -68,11 +75,11 @@ public class Passenger {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
