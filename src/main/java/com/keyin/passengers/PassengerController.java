@@ -2,6 +2,7 @@ package com.keyin.passengers;
 
 import com.keyin.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,13 +42,26 @@ public class PassengerController {
     }
 
     @PostMapping("/passenger")
-    public Passenger createPassenger(@RequestBody Passenger newPassenger) {
-        City city = cityService.findCityById(newPassenger.getCity().getId());
+    public Passenger createPassenger(@RequestBody PassengerRequest newPassengerRequest) {
+        System.out.println(newPassengerRequest);
+        City city = cityService.findCityById(newPassengerRequest.cityId);
+        System.out.println(city);
         if (city == null) {
-            throw new RuntimeException("City not found with ID: " + newPassenger.getCity().getId());
+            throw new ResourceNotFoundException("City not found with ID: " + newPassengerRequest.cityId);
         }
-        newPassenger.setCity(city);
+
+        Passenger newPassenger = new Passenger(newPassengerRequest.firstName, newPassengerRequest.lastName, newPassengerRequest.phoneNumber,city);
+
+
         return passengerService.createPassenger(newPassenger);
+    }
+
+
+    public static class PassengerRequest {
+        public String firstName;
+        public String lastName;
+        public int phoneNumber;
+        public int cityId;
     }
 
     @PutMapping("/passenger/{id}")

@@ -1,6 +1,11 @@
 package com.keyin.airport;
 
+import com.keyin.city.City;
+import com.keyin.city.CityService;
+import com.keyin.passengers.Passenger;
+import com.keyin.passengers.PassengerController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,6 +16,8 @@ import java.util.List;
 public class AirportController {
     @Autowired
     private AirportService airportService;
+    @Autowired
+    private CityService cityService;
 
     @GetMapping("/airports")
     public List<Airport> getAllAirports() {
@@ -41,8 +48,25 @@ public class AirportController {
 //    }
 
     @PostMapping("/airport")
-    public Airport createAirport(@RequestBody Airport newAirport) {
+    public Airport createPassenger(@RequestBody AirportRequest newAirportRequest) {
+        System.out.println(newAirportRequest);
+        City city = cityService.findCityById(newAirportRequest.cityId);
+        System.out.println(city);
+        if (city == null) {
+            throw new ResourceNotFoundException("City not found with ID: " + newAirportRequest.cityId);
+        }
+
+        Airport newAirport = new Airport(newAirportRequest.code, newAirportRequest.name, city);
+
+
         return airportService.createAirport(newAirport);
+    }
+
+
+    public static class AirportRequest {
+        public String code;
+        public String name;
+        public int cityId;
     }
 
     @PutMapping("/airport/{id}")

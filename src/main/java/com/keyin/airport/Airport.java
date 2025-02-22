@@ -24,7 +24,12 @@ public class Airport {
     private List<Aircraft> aircraftList;
 
     public Airport(){}
-
+    public Airport(String code, String name, City city)
+    {
+        this.code = code;
+        this.name = name;
+        this.city = city;
+    }
     public Airport(String code, String name, City city, List<Aircraft> aircraftList)
     {
         this.code = code;
