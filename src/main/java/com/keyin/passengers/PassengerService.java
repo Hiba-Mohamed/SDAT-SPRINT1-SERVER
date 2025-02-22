@@ -1,5 +1,6 @@
 package com.keyin.passengers;
 
+import com.keyin.aircraft.Aircraft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +52,17 @@ public class PassengerService {
 
         return null;
     }
+
+    public Passenger addToPassengerAircraftList(long id, Aircraft aircraft) {
+        Passenger passengerToUpdate = findPassengerById(id);
+
+        if (passengerToUpdate != null) {new ArrayList<Passenger>();
+            List<Aircraft> passengerAircraftList = passengerToUpdate.getAircraft();
+            passengerAircraftList.add(aircraft);
+            return passengerRepository.save(passengerToUpdate);
+        }
+
+        return null;
+    }
+
 }

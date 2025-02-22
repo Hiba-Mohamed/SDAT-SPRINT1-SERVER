@@ -1,5 +1,6 @@
 package com.keyin.passengers;
 
+import com.keyin.aircraft.Aircraft;
 import com.keyin.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -73,4 +74,6 @@ public class PassengerController {
 //    public List<Airport> getAirportsPassengerUsed(@PathVariable("id") long id){
 //        return
 //    }
+
+
 }
