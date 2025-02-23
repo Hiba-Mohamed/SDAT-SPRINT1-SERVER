@@ -1,5 +1,7 @@
 package com.keyin.aircraft;
 
+import com.keyin.airport.Airport;
+import com.keyin.airport.AirportService;
 import com.keyin.passengers.Passenger;
 import com.keyin.passengers.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,10 @@ public class AircraftController {
 
     @Autowired
     private PassengerService passengerService;
+
+    @Autowired
+    private AirportService airportService;
+
 
     @GetMapping("/aircrafts")
     public List<Aircraft> getAllAircrafts() {
@@ -110,6 +116,73 @@ public class AircraftController {
         return aircraftForDisplay;
     }
 
+
+    @PutMapping("/updateAircraftAirportList/{id}")
+    public List<AirportDisplay> updateAircraftAirportsOnly(@PathVariable("id") Long aircraftId, @RequestBody List<Long> airportIdList) {
+        Aircraft aircraft = aircraftService.findById(aircraftId);
+        if (aircraft == null) {
+            throw new RuntimeException("Aircraft not found");
+        }
+
+        List<Airport> airports = new ArrayList<>();
+
+        for (Long airportId : airportIdList) {
+            Airport airport = airportService.findAirportById(airportId);
+            if (airport == null) {
+                throw new RuntimeException("Airport with ID " + airportId + " not found");
+            }
+            airports.add(airport);
+        }
+
+        aircraft.setAirports(airports);
+
+        for (Airport airport : airports) {
+            if (!airport.getAircraftList().contains(aircraft)) {
+                airport.getAircraftList().add(aircraft);
+                airportService.updateAirport(airport.getId(), airport);
+            }
+        }
+
+        aircraftService.updateAircraft(aircraftId, aircraft);
+
+        List<AirportDisplay> airportDisplays = new ArrayList<>();
+        for (Airport airport : airports) {
+            AirportDisplay airportDisplay = new AirportDisplay();
+            airportDisplay.setAirportId(airport.getId());
+            airportDisplay.setAirportCity(airport.getCity().getName());
+            airportDisplay.setAirportName(airport.getName());
+            airportDisplay.setAirportCode(airport.getCode());
+            airportDisplays.add(airportDisplay);
+        }
+
+        return airportDisplays;
+    }
+
+    @GetMapping("/{aircraftId}/aircraftsAirportsList")
+    public List<AirportDisplay> getAirportsByAircraft(@PathVariable long aircraftId) {
+        Aircraft aircraft = aircraftService.findById(aircraftId);
+
+        if (aircraft == null) {
+            throw new RuntimeException("Aircraft not found");
+        }
+
+        List<Airport> airports = aircraft.getAirports();
+
+        List<AirportDisplay> airportsForDisplay = new ArrayList<>();
+        for (Airport airport : airports) {
+            AirportDisplay display = new AirportDisplay();
+            display.setAirportId(airport.getId());
+            display.setAirportName(airport.getName());
+            display.setAirportCity(airport.getCity().getName());
+            display.setAirportCode(airport.getCode());
+            airportsForDisplay.add(display);
+        }
+
+        return airportsForDisplay;
+    }
+
+
+
     public static class AircraftDisplay{
         public long craftId;
         public String type;
@@ -148,6 +221,26 @@ public class AircraftController {
         }
     }
 
+    public static class AirportDisplay{
+        public long airportId;
+        public String airportName;
+        public String airportCode;
+        public String airportCity;
 
+        public void setAirportId(long airportId) {
+            this.airportId = airportId;
+        }
 
-}
+        public void setAirportCity(String airportCity) {
+            this.airportCity = airportCity;
+        }
+
+        public void setAirportName(String airportName) {
+            this.airportName = airportName;
+        }
+
+        public void setAirportCode(String airportCode) {
+            this.airportCode = airportCode;
+        }
+    }
+    }
