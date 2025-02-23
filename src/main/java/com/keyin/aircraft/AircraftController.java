@@ -181,6 +181,44 @@ public class AircraftController {
         return airportsForDisplay;
     }
 
+    @GetMapping("/getAirportByPassengerId/{passengerId}")
+    public List<AirportDisplay> getAirportsByAPassenger(@PathVariable long passengerId) {
+        Passenger passenger = passengerService.findPassengerById(passengerId);
+
+        if (passenger == null) {
+            throw new RuntimeException("Passenger not found");
+        }
+
+        List<Aircraft> aircrafts = passenger.getAircraft();
+        if (aircrafts == null) {
+            throw new RuntimeException("Aircrafts not found");
+        }
+
+        List<AirportDisplay> airportsForDisplay = new ArrayList<>();
+        List<Long> addedAirportIds = new ArrayList<>();
+
+        for (Aircraft aircraft : aircrafts) {
+            List<Airport> aircraftAirportList = aircraft.getAirports();
+            if (aircraftAirportList != null) {
+                for (Airport airport : aircraftAirportList) {
+                    if (!addedAirportIds.contains(airport.getId())) {
+                        AirportDisplay display = new AirportDisplay();
+                        display.setAirportId(airport.getId());
+                        display.setAirportName(airport.getName());
+                        display.setAirportCity(airport.getCity().getName());
+                        display.setAirportCode(airport.getCode());
+
+                        airportsForDisplay.add(display);
+                        addedAirportIds.add(airport.getId());
+                    }
+                }
+            }
+        }
+
+        return airportsForDisplay;
+    }
+
+
 
 
     public static class AircraftDisplay{
@@ -243,4 +281,4 @@ public class AircraftController {
             this.airportCode = airportCode;
         }
     }
-    }
+}
