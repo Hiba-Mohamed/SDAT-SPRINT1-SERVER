@@ -25,8 +25,41 @@ public class AirportController {
     }
 
     @GetMapping("/airportsByCity/{city_id}")
-    public List<Airport> getAllCityAirports(@PathVariable Long city_id) {
-        return airportService.findAirportsByCity(city_id);
+    public List<AirportDisplay> getAllCityAirports(@PathVariable Long city_id) {
+        List <Airport> airports = airportService.findAirportsByCity(city_id);
+        List<AirportDisplay> airportsToDisplay= new ArrayList<>();
+        for (Airport airport:airports){
+            AirportDisplay airportToSend = new AirportDisplay();
+            airportToSend.setAirportCity(airport.getCity().getName());
+            airportToSend.setAirportCode(airport.getCode());
+            airportToSend.setAirportId(airport.getId());
+            airportToSend.setAirportName(airport.getName());
+            airportsToDisplay.add(airportToSend);
+        }
+        return airportsToDisplay;
+    }
+
+    public static class AirportDisplay{
+        public long airportId;
+        public String airportName;
+        public String airportCode;
+        public String airportCity;
+
+        public void setAirportId(long airportId) {
+            this.airportId = airportId;
+        }
+
+        public void setAirportCity(String airportCity) {
+            this.airportCity = airportCity;
+        }
+
+        public void setAirportName(String airportName) {
+            this.airportName = airportName;
+        }
+
+        public void setAirportCode(String airportCode) {
+            this.airportCode = airportCode;
+        }
     }
 
     @GetMapping("/airport/{id}")
